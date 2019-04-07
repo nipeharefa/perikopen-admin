@@ -1,6 +1,7 @@
 import * as React from 'react';
-import DeleteButton from '../Common/DeleteButton';
 import NetworkService from '../../service/network';
+
+const DeleteButton = React.lazy(() => import('../Common/DeleteButton'));
 
 type Props = {
   weeks: any
@@ -25,7 +26,9 @@ class TableWeek extends React.PureComponent<Props, {}>
         <tr key={week.id}>
           <td>{week.code}</td>
           <td>
+          <React.Suspense fallback={<div>Loading...</div>}>
             <DeleteButton deleteService={() => NetworkService.deleteWeek(week.id)}/>
+          </React.Suspense>
           </td>
         </tr>
       ))

@@ -1,6 +1,7 @@
 import * as React from 'react';
-import DeleteButton from '../Common/DeleteButton';
 import NetworkService from '../../service/network';
+
+const DeleteButton = React.lazy(() => import('../Common/DeleteButton'));
 
 type Props = {
   schedules: any
@@ -24,9 +25,11 @@ class TableSchedule extends React.PureComponent<Props, State>
         <td>{schedule.id}</td>
         <td>{schedule.date}</td>
         <td>
-          <DeleteButton
-            deleteService={() => NetworkService.deleteSchedule(schedule.id)}
-          />
+          <React.Suspense fallback={<div>Loading...</div>}>
+            <DeleteButton
+              deleteService={() => NetworkService.deleteSchedule(schedule.id)}
+            />
+          </React.Suspense>
         </td>
       </tr>
     ));

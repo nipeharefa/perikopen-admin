@@ -13,17 +13,17 @@ const NetworkService = () => ({
     return axios.get('/api/weeks')
   },
   createWeek: () => {},
-  deleteWeek: (id) => {
+  deleteWeek: (id: Int16Array) => {
     return axios.delete(`/api/weeks/${id}`);
   },
   // Schedule
-  createSchedule: (data) => {
+  createSchedule: (data: any) => {
     return axios.post('/api/service_schedules', data);
   },
   getSchedules: () => {
     return axios.get('/api/service_schedules');
   },
-  deleteSchedule: (id) => {
+  deleteSchedule: (id: Int16Array) => {
     return axios.delete(`/api/service_schedules/${id}`);
   }
 });
