@@ -1,4 +1,4 @@
-import axiosInstance from 'axios';
+import axiosInstance, { AxiosResponse, AxiosTransformer } from 'axios';
 
 const baseUrl = process.env.REACT_APP_API_URL || 'https://perikopen-api.nias.dev';
 const axios = axiosInstance.create({
@@ -9,7 +9,7 @@ const axios = axiosInstance.create({
 });
 
 const NetworkService = () => ({
-  getWeeks: () => {
+  getWeeks: () : Promise<AxiosResponse> => {
     return axios.get('/api/weeks')
   },
   createWeek: () => {},
@@ -20,10 +20,10 @@ const NetworkService = () => ({
   createSchedule: (data: any) => {
     return axios.post('/api/service_schedules', data);
   },
-  getSchedules: () => {
+  getSchedules: (): Promise<AxiosResponse> => {
     return axios.get('/api/service_schedules');
   },
-  deleteSchedule: (id: Int16Array) => {
+  deleteSchedule: (id: Int16Array): Promise<AxiosResponse> =>{
     return axios.delete(`/api/service_schedules/${id}`);
   }
 });
