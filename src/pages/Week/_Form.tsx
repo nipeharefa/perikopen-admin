@@ -1,11 +1,12 @@
-// @flow
 import * as React from 'react';
 
-type Props = { /* ... */ };
+type Props = {
+  onSubmit: any
+};
 
 type State = {
   week: {
-    name: string
+    weekCode: string
   }
 };
 
@@ -14,20 +15,23 @@ class WeekForm extends React.Component<Props, State>
 {
   state = {
     week: {
-      name: ''
+      weekCode: ''
     }
   }
-  processForm = async (e: SyntheticEvent<>) => {
+  processForm = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    console.log('process form and handle callback')
-    console.log(this.state);
+    // console.log('process form and handle callback')
+    if (this.props.onSubmit) {
+      this.props.onSubmit(this.state);
+    }
   }
-  handleWeekNameChange = async (e: SyntheticInputEvent<>) => {
-    const value = e.target.value;
+  handleWeekNameChange = async (e: React.SyntheticEvent<HTMLInputElement>) => {
+    const target: HTMLInputElement = e.currentTarget;
+    const value = target.value;
     this.setState(prevState => ({
       week: {
         ...prevState.week,
-        name: value
+        code: value
       }
     }));
   }

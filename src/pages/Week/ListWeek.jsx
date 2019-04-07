@@ -1,13 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-
-const newAxios = axios.create({
-  baseURL: 'https://perikopen-api.nias.dev',
-  headers: {
-    'Accept': 'application/json',
-  }
-});
+import NetworkService from '../../service/network';
 
 class ListWeek extends React.Component
 {
@@ -19,10 +12,9 @@ class ListWeek extends React.Component
   }
   async getWeek() {
     try {
-      const response = await newAxios.get('/api/weeks')
-      this.setState({ weeks: response.data })
+      const { data } = await NetworkService.getWeeks();
+      this.setState({ weeks: data});
     }catch(e) {
-
     }
   }
   render() {
@@ -38,7 +30,7 @@ class ListWeek extends React.Component
 
       return this.state.weeks.map((week) => (
         <tr key={week.id}>
-          <td>{week.weekCode}</td>  
+          <td>{week.code}</td>  
         </tr>
       ))
     }
