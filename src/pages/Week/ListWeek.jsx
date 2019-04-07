@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import NetworkService from '../../service/network';
+import TableWeek from '../../components/WeekComponent/TableWeek';
 
 class ListWeek extends React.Component
 {
@@ -18,35 +19,10 @@ class ListWeek extends React.Component
     }
   }
   render() {
-    console.log(this.state.weeks);
-    const WeeksRows = () => {
-      if (!this.state.weeks.length) {
-        return (
-          <tr>
-            <td>No Data</td>
-          </tr>
-        )
-      }
-
-      return this.state.weeks.map((week) => (
-        <tr key={week.id}>
-          <td>{week.code}</td>  
-        </tr>
-      ))
-    }
     return (
       <div>
         <Link to="/week/new">Tambah Data Minggu</Link>
-        <table className="uk-table">
-          <thead>
-            <tr>
-              <td>Code</td>
-            </tr>
-          </thead>
-          <tbody>
-            <WeeksRows />
-          </tbody>
-        </table>
+        <TableWeek weeks={this.state.weeks} />
       </div>
     )
   }

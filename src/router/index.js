@@ -17,7 +17,9 @@ const Navigation = () => {
           <SidebarLeft className="uk-visible@m">
             <h3>Perikopen Admin</h3>
             <ul className="uk-nav uk-nav-default tm-nav">
-              <li className="uk-nav-header">Agendre / Tata Ibadah</li>
+              <li className="uk-nav-header">
+                <Link to="/agendre">Agendre / Tata Ibadah</Link>
+              </li>
               <li className="uk-nav-header">
                 <Link to="/perikopen">Perikopen</Link>
               </li>
