@@ -25,6 +25,16 @@ const NetworkService = () => ({
   },
   deleteSchedule: (id: Int16Array): Promise<AxiosResponse> =>{
     return axios.delete(`/api/service_schedules/${id}`);
+  },
+  // Agendre
+  getAgendrees: (): Promise<AxiosResponse> => {
+    return axios.get('/api/worships');
+  },
+  createAgendre: (worship: Object) => {
+    return axios.post('/api/worships', worship)
+  },
+  deleteAgendre: (id: Int16Array) : Promise<AxiosResponse> => {
+    return axios.delete(`/api/worships/${id}`);
   }
 });
 
