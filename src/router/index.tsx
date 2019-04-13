@@ -1,12 +1,28 @@
-import React from 'react';
+import * as React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import routes from './routes';
 import Styled from './styled';
 
 const { SidebarLeft, Main } = Styled;
 
-const RouteComponents = () => routes.map((route) =>
-  <Route exact path={route.path} component={route.component} key={route.path}/>
+interface RouteComponentProps {
+  path: string,
+  component: any,
+}
+
+const RouteComponent : React.FunctionComponent<RouteComponentProps> = (props: RouteComponentProps) => (
+  <Route
+    exact
+    path={props.path}
+    component={props.component}
+  />
+);
+
+const RouteComponents: any = () => routes.map((route: any) =>
+  <RouteComponent
+    path={route.path}
+    component={route.component}
+    key={route.path} />
 );
 
 const Navigation = () => {
