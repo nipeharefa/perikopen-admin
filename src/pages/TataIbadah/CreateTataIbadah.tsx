@@ -7,7 +7,6 @@ class CreateTataIbadah extends React.Component
   formSubmitHandler = async(formData: object) => {
     try {
       const response = await NetworkService.createAgendre(formData);
-      console.log(response);
       return;
     }catch(e) {
       return;
