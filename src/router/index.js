@@ -5,7 +5,7 @@ import Styled from './styled';
 
 const { SidebarLeft, Main } = Styled;
 
-const RouteComponents = () => routes.map((route) => 
+const RouteComponents = () => routes.map((route) =>
   <Route exact path={route.path} component={route.component} key={route.path}/>
 );
 
@@ -28,6 +28,9 @@ const Navigation = () => {
               </li>
               <li className="uk-nav-header">
                 <Link to="/week">Minggu</Link>
+              </li>
+              <li className="uk-nav-header">
+                <Link to="/dress-code">Warna</Link>
               </li>
             </ul>
           </SidebarLeft>

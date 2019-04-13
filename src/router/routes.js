@@ -5,6 +5,8 @@ import ListSchedule from '../pages/Schedule/ListSchedule';
 import CreateSchedule from '../pages/Schedule/CreateSchedule';
 import ListTataIbadah from '../pages/TataIbadah/ListTataIbadah';
 import CreateTataIbadah from '../pages/TataIbadah/CreateTataIbadah';
+import ListDressCode from '../pages/DressCode/ListDressCode';
+import CreateDressCode from '../pages/DressCode/CreateDressCode';
 
 const routes = [
   {
@@ -37,6 +39,15 @@ const routes = [
     component: CreateTataIbadah,
     path: '/agendre/new',
   },
+  // DressCode
+  {
+    component: ListDressCode,
+    path: '/dress-code',
+  },
+  {
+    component: CreateDressCode,
+    path: '/dress-code/new',
+  }
 ];
 
 export default routes;

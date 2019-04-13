@@ -35,6 +35,16 @@ const NetworkService = () => ({
   },
   deleteAgendre: (id: Int16Array) : Promise<AxiosResponse> => {
     return axios.delete(`/api/worships/${id}`);
+  },
+  // Dress Code
+  getDressCodes: (): Promise<AxiosResponse> => {
+    return axios.get('/api/dress_codes');
+  },
+  createDressCode: (dressCode: Object): Promise<AxiosResponse> => {
+    return axios.post('api/dress_codes', dressCode);
+  },
+  deleteDressCode: (id: Int16Array) : Promise<AxiosResponse> => {
+    return axios.delete(`/api/dress_codes/${id}`);
   }
 });
 
