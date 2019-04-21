@@ -7,6 +7,8 @@ import ListTataIbadah from '../pages/TataIbadah/ListTataIbadah';
 import CreateTataIbadah from '../pages/TataIbadah/CreateTataIbadah';
 import ListDressCode from '../pages/DressCode/ListDressCode';
 import CreateDressCode from '../pages/DressCode/CreateDressCode';
+import ListPerikopen from '../pages/Perikopen/ListPerikopen';
+import CreatePerikopen from '../pages/Perikopen/CreatePerikopen';
 
 const routes = [
   {
@@ -47,6 +49,15 @@ const routes = [
   {
     component: CreateDressCode,
     path: '/dress-code/new',
+  },
+  // Perikopen
+  {
+    component: ListPerikopen,
+    path: '/perikopen',
+  },
+  {
+    component: CreatePerikopen,
+    path: '/perikopen/new',
   }
 ];
 

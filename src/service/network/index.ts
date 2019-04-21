@@ -45,6 +45,13 @@ const NetworkService = () => ({
   },
   deleteDressCode: (id: Int16Array) : Promise<AxiosResponse> => {
     return axios.delete(`/api/dress_codes/${id}`);
+  },
+  // Perikopen
+  createPerikopen: (perikopen: Object): Promise<AxiosResponse> => {
+    return axios.post('/api/perikopens', perikopen);
+  },
+  getPerikopens: (): Promise<AxiosResponse> => {
+    return axios.get('/api/perikopens');
   }
 });
 
