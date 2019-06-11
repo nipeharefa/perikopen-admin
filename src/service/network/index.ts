@@ -9,6 +9,9 @@ const axios = axiosInstance.create({
 });
 
 const NetworkService = () => ({
+  getFormURL: (url: string) : Promise<AxiosResponse> => {
+    return axios.get(url)
+  },
   getWeeks: () : Promise<AxiosResponse> => {
     return axios.get('/api/weeks')
   },

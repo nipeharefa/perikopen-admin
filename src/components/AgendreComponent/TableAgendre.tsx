@@ -7,7 +7,7 @@ type Props = {
   agendrees: any
 }
 
-class TableAgendre extends React.PureComponent<Props, {}> 
+class TableAgendre extends React.PureComponent<Props, {}>
 {
   static defaultProps: Props = {
     agendrees: []
@@ -24,13 +24,7 @@ class TableAgendre extends React.PureComponent<Props, {}>
       const rows = this.props.agendrees.map((agendre : any) => (
         <tr key={agendre.id}>
           <td>
-            {agendre.worshipKey}
-          </td>
-          <td>
-            {agendre.idName}
-          </td>
-          <td>
-            {agendre.niasName}
+            {agendre.key}
           </td>
           <td>
             <React.Suspense fallback={<div>Loading...</div>}>
@@ -47,8 +41,6 @@ class TableAgendre extends React.PureComponent<Props, {}>
         <thead>
           <tr>
             <th>Kode Agendre</th>
-            <th>Bahasa Indonesia</th>
-            <th>Bahasa Nias</th>
             <th></th>
           </tr>
         </thead>

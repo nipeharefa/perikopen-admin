@@ -22,12 +22,12 @@ class TablePerikopen extends React.PureComponent<Props, {}>
         )
       }
 
-      return this.props.perikopens.map((week: any) => (
-        <tr key={week.id}>
-          <td>{week.code}</td>
+      return this.props.perikopens.map((perikopen: any) => (
+        <tr key={perikopen.id}>
+          <td>{perikopen.schedule.date}</td>
           <td>
           <React.Suspense fallback={<div>Loading...</div>}>
-            <DeleteButton deleteService={() => NetworkService.deleteWeek(week.id)}/>
+            <DeleteButton deleteService={() => NetworkService.deleteWeek(perikopen.id)}/>
           </React.Suspense>
           </td>
         </tr>
@@ -37,7 +37,7 @@ class TablePerikopen extends React.PureComponent<Props, {}>
       <table className="uk-table">
         <thead>
           <tr>
-            <td>Code</td>
+            <td>Tanggal</td>
             <td></td>
           </tr>
         </thead>

@@ -153,7 +153,7 @@ class PerikopenForm extends React.Component<Props, State>
                 value={this.state.perikopen.worship}
                 onChange={this.handleSelectChange}>
                 <WeekOpsi
-                  textProperty="idName"
+                  textProperty="key"
                   data={this.state.selectData.agendre}
                 />
               </select>
@@ -186,7 +186,7 @@ class PerikopenForm extends React.Component<Props, State>
                 value={this.state.perikopen.dressCode}
                 onChange={this.handleSelectChange}>
                 <WeekOpsi
-                  textProperty="colorKey"
+                  textProperty="key"
                   data={this.state.selectData.colors } />
               </select>
             </div>

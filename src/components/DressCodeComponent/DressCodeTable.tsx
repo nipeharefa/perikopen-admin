@@ -24,7 +24,7 @@ class DressCodeTable extends React.Component<Props, {}>
 
       const rows = this.props.dressCodes.map((dressCode: any) => (
         <tr key={dressCode.id}>
-          <td>{ dressCode.colorKey }</td>
+          <td>{ dressCode.key }</td>
           <td>
             <React.Suspense fallback={<div>...loading</div>}>
               <DeleteButton deleteService={() => NetworkService.deleteDressCode(dressCode.id)} />

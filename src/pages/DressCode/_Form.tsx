@@ -6,7 +6,7 @@ type Props = {
 
 type State = {
   color: {
-    colorKey: string
+    key: string
   }
 };
 
@@ -15,7 +15,7 @@ class DressCodeForm extends React.Component<Props, State>
 {
   state = {
     color: {
-      colorKey: ''
+      key: ''
     }
   }
   processForm = async (e: React.SyntheticEvent) => {
@@ -50,7 +50,7 @@ class DressCodeForm extends React.Component<Props, State>
           </label>
           <div className="uk-form-controls">
             <input
-              name="colorKey"
+              name="key"
               className="uk-input"
               type="text"
               placeholder="Kode Warna"

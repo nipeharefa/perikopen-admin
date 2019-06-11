@@ -6,7 +6,7 @@ type Props = {
 
 type State = {
   week: {
-    weekCode: string
+    code: string
   }
 };
 
@@ -15,7 +15,7 @@ class WeekForm extends React.Component<Props, State>
 {
   state = {
     week: {
-      weekCode: ''
+      code: ''
     }
   }
   processForm = async (e: React.SyntheticEvent) => {

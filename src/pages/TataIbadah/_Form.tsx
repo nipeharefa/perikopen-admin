@@ -7,9 +7,7 @@ type Props = {
 
 type State = {
   agendre: {
-    worshipKey: string,
-    idName: string,
-    niasName: string
+    key: string,
   }
 };
 
@@ -17,9 +15,7 @@ class ScheduleForm extends React.Component<Props, State>
 {
   state = {
     agendre: {
-      worshipKey: '',
-      idName: '',
-      niasName: '',
+      key: '',
     }
   }
   processForm = async (e: React.SyntheticEvent) => {
@@ -57,28 +53,10 @@ class ScheduleForm extends React.Component<Props, State>
                 </label>
                 <div className="uk-form-controls">
                     <input
-                    name="worshipKey"
+                    name="key"
                     className="uk-input"
                     type="text"
                     placeholder="Kode Agendre"
-                    onChange={this.handleInputChange}
-                    />
-                </div>
-                <div className="uk-form-controls">
-                    <input
-                    name="idName"
-                    className="uk-input"
-                    type="text"
-                    placeholder="Terjemahan dalam Bahasa Indonesia"
-                    onChange={this.handleInputChange}
-                    />
-                </div>
-                <div className="uk-form-controls">
-                    <input
-                    name="niasName"
-                    className="uk-input"
-                    type="text"
-                    placeholder="Terjemahan Dalam Bahasa Nias"
                     onChange={this.handleInputChange}
                     />
                 </div>
