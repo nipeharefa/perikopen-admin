@@ -9,7 +9,7 @@ class ListDressCode extends React.PureComponent
   state = {
     dressCodes: []
   }
-  componentDidMount() {
+  async componentDidMount() {
     this.getDressCode();
   }
   getDressCode = async () => {

@@ -55,6 +55,10 @@ const NetworkService = () => ({
   },
   getPerikopens: (): Promise<AxiosResponse> => {
     return axios.get('/api/perikopens');
+  },
+  // Book
+  getBibleBookCollection: (): Promise<AxiosResponse> => {
+    return axios.get('/api/books_of_bibles.json')
   }
 });
 

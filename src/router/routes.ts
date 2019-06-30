@@ -9,6 +9,7 @@ import ListDressCode from '../pages/DressCode/ListDressCode';
 import CreateDressCode from '../pages/DressCode/CreateDressCode';
 import ListPerikopen from '../pages/Perikopen/ListPerikopen';
 import CreatePerikopen from '../pages/Perikopen/CreatePerikopen';
+import ListBook from '../pages/Bible/Book/ListBook';
 
 const routes = [
   {
@@ -58,6 +59,11 @@ const routes = [
   {
     component: CreatePerikopen,
     path: '/perikopen/new',
+  },
+  // Bible Book
+  {
+    component: ListBook,
+    path: '/bible/book'
   }
 ];
 
