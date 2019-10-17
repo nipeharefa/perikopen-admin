@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import UIkit from 'uikit';
 import Icons from 'uikit/dist/js/uikit-icons';
 
-import './index.css';
 import 'uikit/dist/css/uikit.min.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';

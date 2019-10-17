@@ -5,33 +5,39 @@ type Props = {
 };
 
 type State = {
-  week: {
-    code: string
+  color: {
+    key: string
   }
 };
 
 
-class WeekForm extends React.Component<Props, State>
+class DressCodeForm extends React.Component<Props, State>
 {
   state = {
-    week: {
-      code: ''
+    color: {
+      key: ''
     }
   }
   processForm = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    // console.log('process form and handle callback')
     if (this.props.onSubmit) {
-      this.props.onSubmit(this.state);
+      this.props.onSubmit(this.state.color);
     }
   }
-  handleWeekNameChange = async (e: React.SyntheticEvent<HTMLInputElement>) => {
-    const target: HTMLInputElement = e.currentTarget;
-    const value = target.value;
+  handleInputChange = (event: React.SyntheticEvent<HTMLInputElement>) => {
+    const target: HTMLInputElement = event.currentTarget;
+
+    const name: string = target.name;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+
+    const changes: object = {
+      [name]: value
+    };
+
     this.setState(prevState => ({
-      week: {
-        ...prevState.week,
-        code: value
+      color: {
+        ...prevState.color,
+        ...changes,
       }
     }));
   }
@@ -40,14 +46,15 @@ class WeekForm extends React.Component<Props, State>
       <form className="uk-form">
         <div>
           <label className="uk-form-label">
-            Nama Minggu
+            Kode Warna
           </label>
           <div className="uk-form-controls">
             <input
+              name="key"
               className="uk-input"
               type="text"
-              placeholder="Nama Minggu"
-              onChange={this.handleWeekNameChange}
+              placeholder="Kode Warna"
+              onChange={this.handleInputChange}
             />
           </div>
         </div>
@@ -57,4 +64,4 @@ class WeekForm extends React.Component<Props, State>
   }
 }
 
-export default WeekForm;
+export default DressCodeForm;
