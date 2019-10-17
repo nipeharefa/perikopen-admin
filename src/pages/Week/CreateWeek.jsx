@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import WeekForm from './_Form';
 
-const baseUrl = process.env.REACT_APP_API_URL || 'https://perikopen-api.nias.dev';
+const baseUrl = process.env.REACT_APP_API_URL || 'https://perikopen-staging-api.nias.dev';
 const newAxios = axios.create({
   baseURL: baseUrl,
   headers: {
