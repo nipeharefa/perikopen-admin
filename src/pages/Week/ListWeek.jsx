@@ -3,29 +3,28 @@ import { Link } from 'react-router-dom';
 import NetworkService from '../../service/network';
 import TableWeek from '../../components/WeekComponent/TableWeek';
 
-class ListWeek extends React.Component
-{
-  state = {
-    weeks: []
-  }
-  componentDidMount() {
-    this.getWeek();
-  }
-  async getWeek() {
+const ListWeek = () => {
+
+  const [weeks, setWeeks] = React.useState([]);
+  const getWeek = async () => {
     try {
       const { data } = await NetworkService.getWeeks();
-      this.setState({ weeks: data});
+      setWeeks(data);
     }catch(e) {
     }
   }
-  render() {
-    return (
+
+  React.useEffect(() => {
+    getWeek();
+  }, [])
+
+  return (
       <div>
         <Link to="/week/new">Tambah Data Minggu</Link>
-        <TableWeek weeks={this.state.weeks} />
+        <TableWeek weeks={weeks} />
       </div>
-    )
-  }
-}
+  )
+};
+
 
 export default ListWeek;

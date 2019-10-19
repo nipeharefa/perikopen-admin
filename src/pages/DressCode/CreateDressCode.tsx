@@ -2,23 +2,20 @@ import * as React from 'react';
 import Form from './_Form';
 import NetworkService from '../../service/network';
 
-class CreateDressCode extends React.PureComponent
-{
-  handleFormSubmitted = async(formData: Object) => {
+const CreateDressCode = (props: any) => {
+  const handleFormSubmitted = async(formData: Object) => {
     try {
+      const { history } = props;
       const { data } = await NetworkService.createDressCode(formData);
-      console.log(data);
+      history.push('/dress-code');
     } catch (err) {
-
     }
   }
-  render() {
-    return (
-      <React.Fragment>
-        <Form onSubmit={this.handleFormSubmitted} />
-      </React.Fragment>
-    )
-  }
+  return (
+    <React.Fragment>
+      <Form onSubmit={handleFormSubmitted} />
+    </React.Fragment>
+  );
 }
 
 export default CreateDressCode;

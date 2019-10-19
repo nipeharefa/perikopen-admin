@@ -1,6 +1,7 @@
-import axiosInstance, { AxiosResponse, AxiosTransformer } from 'axios';
+import axiosInstance, { AxiosResponse } from 'axios';
 
-const baseUrl = process.env.REACT_APP_API_URL || 'https://perikopen-api.nias.dev';
+const baseUrl = process.env.REACT_APP_API_URL || 'https://perikopen-staging-api.nias.dev';
+console.log(baseUrl);
 const axios = axiosInstance.create({
   baseURL: baseUrl,
   headers: {

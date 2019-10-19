@@ -7,7 +7,7 @@ class CreateSchedule extends React.Component
 {
   formSubmitHandler = async(formData: object) => {
     try {
-      const { data } = await NetworkService.createSchedule(formData);
+      await NetworkService.createSchedule(formData);
       return;
     }catch(e) {
       return;
@@ -22,6 +22,6 @@ class CreateSchedule extends React.Component
       </div>
     )
   }
-}
+};
 
 export default CreateSchedule;
