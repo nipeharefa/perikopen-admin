@@ -5,9 +5,7 @@ import NetworkService from '../../service/network';
 class CreatePerikopen extends React.Component
 {
   formSubmitHandler = async(formData: object) => {
-    // console.log(formData);
     const response = await NetworkService.createPerikopen(formData);
-
     console.log(response);
   }
   render() {

@@ -57,9 +57,20 @@ const NetworkService = () => ({
   getPerikopens: (): Promise<AxiosResponse> => {
     return axios.get('/api/perikopens');
   },
+  getPerikopen: (id: Number) :Promise<AxiosResponse> => {
+    return axios.get(`/api/perikopens/${id}`);
+  },
   // Book
   getBibleBookCollection: (): Promise<AxiosResponse> => {
-    return axios.get('/api/books_of_bibles.json')
+    return axios.get('/api/books_of_bibles.json');
+  },
+  getPerikopenKidungJemaat: (perikopenId: Number) : Promise<AxiosResponse> => {
+    return axios.get(`api/perikopen/${perikopenId}/kj`);
+  },
+
+  // Kidung Jemaat
+  getKidungJemaat: () : Promise<AxiosResponse> => {
+    return axios.get('api/kidung_jemaats');
   }
 });
 

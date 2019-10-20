@@ -13,6 +13,7 @@ interface RouteComponentProps {
 const RouteComponent : React.FunctionComponent<RouteComponentProps> = (props: RouteComponentProps) => (
   <Route
     exact
+    strict
     path={props.path}
     component={props.component}
   />
@@ -35,6 +36,12 @@ const Navigation = () => {
             <ul className="uk-nav uk-nav-default tm-nav">
               <li className="uk-nav-header">
                 <Link to="/bible/book">Alkitab</Link>
+              </li>
+              <li className="uk-nav-header">
+                <Link to="/bible/book">Kidung Jemaat</Link>
+              </li>
+              <li className="uk-nav-header">
+                <Link to="/bible/book">Buku Zinuno</Link>
               </li>
               <li className="uk-nav-header">
                 <Link to="/agendre">Agendre / Tata Ibadah</Link>

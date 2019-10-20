@@ -20,7 +20,6 @@ class WeekForm extends React.Component<Props, State>
   }
   processForm = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    // console.log('process form and handle callback')
     if (this.props.onSubmit) {
       this.props.onSubmit(this.state);
     }

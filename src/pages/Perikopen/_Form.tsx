@@ -42,7 +42,6 @@ class PerikopenForm extends React.Component<Props, State>
     this.loadSelectData();
   }
   loadSelectData = async() =>  {
-    console.log('loadSelectData');
     const objPromise = [
       {
         state: 'weeks',
