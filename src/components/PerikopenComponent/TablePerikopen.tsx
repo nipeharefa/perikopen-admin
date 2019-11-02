@@ -2,6 +2,7 @@ import * as React from 'react';
 import NetworkService from '../../service/network';
 import Translation from '../Translation';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 
 const DeleteButton = React.lazy(() => import('../Common/DeleteButton'));
 
@@ -25,9 +26,14 @@ const TablePerikopen = (props: any) => {
         const formattedDate = moment(perikopen.schedule.date)
           .format('dddd, DD MMMM YYYY');
 
+        const linkToDetailPerikopen = `/perikopen/${perikopen.id}`
         return (
           <tr key={perikopen.id}>
-            <td>{formattedDate}</td>
+            <td>
+              <Link to={linkToDetailPerikopen}>
+                {formattedDate}
+              </Link>
+            </td>
             <td>
               <Translation translationID={perikopen.worship.key} />
             </td>

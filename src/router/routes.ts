@@ -60,7 +60,7 @@ const routes = [
   },
   {
     component: DetailPerikopen,
-    path: '/perikopen/:id',
+    path: '/perikopen/:id([0-9]+)',
   },
   {
     component: CreatePerikopen,

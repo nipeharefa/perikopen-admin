@@ -6,7 +6,7 @@ const axios = axiosInstance.create({
   baseURL: baseUrl,
   headers: {
     'Accept': 'application/json',
-  }
+  },
 });
 
 const NetworkService = () => ({
@@ -52,13 +52,16 @@ const NetworkService = () => ({
   },
   // Perikopen
   createPerikopen: (perikopen: Object): Promise<AxiosResponse> => {
-    return axios.post('/api/perikopens', perikopen);
+    return axios.post('/api/perikopens', perikopen, { headers: {'content-type': 'application/json'}});
   },
   getPerikopens: (): Promise<AxiosResponse> => {
     return axios.get('/api/perikopens');
   },
   getPerikopen: (id: Number) :Promise<AxiosResponse> => {
     return axios.get(`/api/perikopens/${id}`);
+  },
+  addKJToPerikopen: (data: Object) : Promise<AxiosResponse> => {
+    return axios.post('/api/perikopen-kj', data, { headers: {'content-type': 'application/json'}});
   },
   // Book
   getBibleBookCollection: (): Promise<AxiosResponse> => {
@@ -71,7 +74,10 @@ const NetworkService = () => ({
   // Kidung Jemaat
   getKidungJemaat: () : Promise<AxiosResponse> => {
     return axios.get('api/kidung_jemaats');
-  }
+  },
+  getWorships: () : Promise<AxiosResponse> => {
+    return axios.get('api/worships');
+  },
 });
 
 export default NetworkService();

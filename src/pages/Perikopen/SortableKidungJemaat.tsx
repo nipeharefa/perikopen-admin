@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { AxiosResponse } from 'axios';
 import {SortableContainer, SortableElement, SortEnd } from 'react-sortable-hoc';
 import network from '../../service/network';
 
@@ -46,8 +47,8 @@ type SortableKidungJemaatProps = {
 const SortableKidungJemaat = ({ perikopenId }: SortableKidungJemaatProps ) => {
 
   const [kjCollections, setKjCollections] = React.useState([]);
-
   const [kidungJemaat, setKidungJemaat] = React.useState([]);
+  const [songSelected, setSongSelected] = React.useState(0);
 
   const getKidungJemaat = async () => {
     try {
@@ -75,17 +76,53 @@ const SortableKidungJemaat = ({ perikopenId }: SortableKidungJemaatProps ) => {
   const onSortEnd = (x: SortEnd) => {
     console.log(x);
   };
+
+  const handleChange = (e: React.SyntheticEvent<HTMLSelectElement>) => {
+    const selected: number = parseInt(e.currentTarget.value);
+    setSongSelected(selected);
+  };
+
+  const _addKJToPerikpen = async(data: Object) => {
+
+    try {
+      const response : AxiosResponse = await network.addKJToPerikopen(data);
+      setSongSelected(0);
+
+      // kidungJemaat.
+      const newKidungJemaat : any = [...kidungJemaat, response.data];
+      setKidungJemaat(newKidungJemaat);
+    } catch (error) {}
+
+  };
+  const handleSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    const data = {
+      displayOrder: 0,
+      perikopen: perikopenId,
+      kidungJemaat: songSelected,
+    };
+    _addKJToPerikpen(data);
+  };
+
   return (
     <Fragment>
       <SortableList items={kidungJemaat} onSortEnd={onSortEnd} />
-      <div className="uk-inline">
-        <select className="uk-select">
-          {kjCollections.map((x: any) => (
-            <option key={x.id}>{x.title}</option>
-          ))}
-        </select>
-        <button type="button">Tambah</button>
-      </div>
+      <form onSubmit={handleSubmit}>
+        <div className="uk-margin">
+          <select
+            value={songSelected}
+            onChange={handleChange}
+            className="uk-select">
+            <option value="0">Pilih</option>
+            {kjCollections.map((x: any) => (
+              <option key={x.id} value={x.id}>{x.title}</option>
+            ))}
+          </select>
+        </div>
+        <div className="uk-margin">
+          <input type="submit" className="uk-button uk-button-primary" />
+        </div>
+      </form>
     </Fragment>
   )
 };

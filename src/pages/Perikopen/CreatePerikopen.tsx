@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { Fragment } from 'react';
 import Form from './_Form';
 import NetworkService from '../../service/network';
 
@@ -10,9 +10,9 @@ class CreatePerikopen extends React.Component
   }
   render() {
     return (
-      <div>
+      <Fragment>
         <Form onSubmit={this.formSubmitHandler} />
-      </div>
+      </Fragment>
     )
   }
 }

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { async } from 'q';
 
 type Props = {
   text: string,

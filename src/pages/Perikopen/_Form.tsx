@@ -1,199 +1,117 @@
+import React, { useState, useEffect } from 'react';
 
-import * as React from 'react';
-import NetworkService from '../../service/network';
+import { PerikopenProvider, IPerikopenData } from './Context';
+
+import SelectFromAjax from './_SelectFromAjax';
+import Network from '../../service/network';
 
 type Props = {
-  onSubmit: (data: any) => any
+  onSubmit: (data: any) => any,
+  perikopenId?: Number,
 };
 
-type State = {
-  perikopen: {
-    color?: any,
-    worship?: any,
-    week?: any,
-    dressCode?: any,
-    schedule: string
-  },
-  selectData: {
-    weeks: any,
-    agendre: any,
-    schedule: any,
-    colors: any,
-  }
+interface defaultFormData extends IPerikopenData {
+  week: number,
+  schedule: number,
+  worship: number,
+  dressCode: number,
 };
 
-class PerikopenForm extends React.Component<Props, State>
-{
-  state : State = {
-    perikopen: {
-      worship: '',
-      week: '',
-      dressCode: '',
-      schedule: '',
-    },
-    selectData: {
-      weeks: [],
-      agendre: [],
-      schedule: [],
-      colors: [],
+const PerikopenForm = (props: Props) => {
+  const { perikopenId = 0 } = props;
+
+  const obj : defaultFormData =  {
+    id: 0,
+    week: 0,
+    schedule: 0,
+    worship: 0,
+    dressCode: 0,
+  };
+
+  const [formData, setFormData] = useState(obj);
+
+  useEffect(() => {
+    const getPerikopenData = async() => {
+      try {
+        const { data } = await Network.getPerikopen(perikopenId);
+
+        const newObj = Object.assign({}, formData, {
+          week: data.week.id,
+          dressCode: data.dressCode.id,
+          schedule: data.schedule.id,
+          worship: data.worship.id,
+        });
+        setFormData(newObj);
+      } catch (error) {}
     }
-  }
-  componentDidMount() {
-    this.loadSelectData();
-  }
-  loadSelectData = async() =>  {
-    const objPromise = [
-      {
-        state: 'weeks',
-        fungsi: () => NetworkService.getWeeks(),
-      },
-      {
-        state: 'colors',
-        fungsi: () => NetworkService.getDressCodes(),
-      },
-      {
-        state: 'agendre',
-        fungsi: () => NetworkService.getAgendrees(),
-      },
-      {
-        state: 'schedule',
-        fungsi: () => NetworkService.getSchedules(),
-      }
-    ];
 
-    objPromise.forEach(async (obj: any) => {
-      const { data } = await obj.fungsi();
-      const changes = {
-        [obj.state]: data,
-      };
+    if (perikopenId !== 0) {
+      getPerikopenData();
+    }
+  }, []);
 
-      this.setState(prevState => ({
-        selectData: {
-          ...prevState.selectData,
-          ...changes,
-        }
-      }));
-    });
-  }
-  processForm = async (e: React.SyntheticEvent) => {
+  const updateFormData = (value: object) => {
+    const newObj : defaultFormData = Object.assign({}, formData, value);
+    setFormData(newObj);
+  };
+
+  const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-
-    const { onSubmit } = this.props;
-    if (onSubmit) {
-      const { perikopen } = this.state;
-      this.props.onSubmit(perikopen);
-    }
+    delete formData["id"];
+    Network.createPerikopen(formData);
   }
-  handleSelectChange = (event: React.SyntheticEvent<HTMLSelectElement>) => {
-    const target: HTMLSelectElement = event.currentTarget;
 
-    const name: string = target.name;
-    const value = target.value;
-
-    const changes: object = {
-      [name]: parseInt(value)
-    };
-    this.setState(prevState => ({
-      perikopen: {
-        ...prevState.perikopen,
-        ...changes,
-      }
-    }));
-  }
-  render() {
-    const WeekOpsi = (props: any): any => {
-
-      const { data } = props;
-      const selectedValue: any = props.selectedValue || false;
-      if (null == data || !data.length) {
-        return (<option key={0} value="">Pilih Warna</option>)
-      }
-
-      const opsi = data.map((o: any, key: any) => {
-        return (
-          <option
-            key={o.id}
-            value={o.id}
-          >
-              {o[props.textProperty]}
-          </option>
-        )
-      });
-
-      return [<option key={0} value="">Pilih</option>, ...opsi];
-    };
-
-    return (
-      <form className="uk-form">
-        <div>
-            <label className="uk-form-label">
-              Minggu
-            </label>
-            <div className="uk-form-controls">
-              <select
-                name="week"
-                value={this.state.perikopen.week}
-                className="uk-select"
-                onChange={this.handleSelectChange}>
-                <WeekOpsi
-                  textProperty="code"
-                  data={this.state.selectData.weeks} />
-              </select>
-            </div>
+  return (
+    <PerikopenProvider value={formData}>
+      <form data-uk-form onSubmit={handleSubmit}>
+        <div className="uk-margin">
+          {/* Weeek */}
+          <SelectFromAjax
+            defaultValue={formData.week}
+            onChange={(value) => updateFormData({week: parseInt(value)})}
+            valueKey="code"
+            getData={Network.getWeeks}
+            name="week" />
         </div>
-        <div>
-            <label className="uk-form-label">
-              Tata Ibadah / Agendre
-            </label>
-            <div className="uk-form-controls">
-              <select
-                name="worship"
-                className="uk-select"
-                value={this.state.perikopen.worship}
-                onChange={this.handleSelectChange}>
-                <WeekOpsi
-                  textProperty="key"
-                  data={this.state.selectData.agendre}
-                />
-              </select>
-            </div>
+
+        <div className="uk-margin">
+          {/* Schedule */}
+          <SelectFromAjax
+            defaultValue={formData.schedule}
+            onChange={(value) => updateFormData({schedule: parseInt(value)})}
+            valueKey="date"
+            getData={Network.getSchedules}
+            name="schedule" />
         </div>
-        <div>
-            <label className="uk-form-label">
-              Jadwal
-            </label>
-            <div className="uk-form-controls">
-              <select
-                name="schedule"
-                className="uk-select"
-                value={this.state.perikopen.schedule}
-                onChange={this.handleSelectChange}>
-                <WeekOpsi
-                  textProperty="date"
-                  data={this.state.selectData.schedule } />
-              </select>
-            </div>
+
+        <div className="uk-margin">
+          {/* Worship */}
+          <SelectFromAjax
+            defaultValue={formData.worship}
+            onChange={(value) => updateFormData({worship: parseInt(value)})}
+            valueKey="key"
+            getData={Network.getWorships}
+            name="worship" />
         </div>
-        <div>
-            <label className="uk-form-label">
-              Warna
-            </label>
-            <div className="uk-form-controls">
-              <select
-                name="dressCode"
-                className="uk-select"
-                value={this.state.perikopen.dressCode}
-                onChange={this.handleSelectChange}>
-                <WeekOpsi
-                  textProperty="key"
-                  data={this.state.selectData.colors } />
-              </select>
-            </div>
+
+        <div className="uk-margin">
+          {/* Color */}
+          <SelectFromAjax
+            defaultValue={formData.dressCode}
+            valueKey="key"
+            onChange={(value) => updateFormData({dressCode: parseInt(value)})}
+            getData={Network.getDressCodes}
+            name="color" />
         </div>
-        <button className="uk-button uk-button-primary" onClick={this.processForm}>Save</button>
+
+        <div className="uk-margin">
+          <input type="submit" className="uk-button uk-button-primary"/>
+        </div>
+
       </form>
-    )
-  }
-}
+    </PerikopenProvider>
+  )
+};
+
 
 export default PerikopenForm;

@@ -6,22 +6,26 @@ import TablePerikopen from '../../components/PerikopenComponent/TablePerikopen';
 
 class ListPerikopen extends React.Component
 {
+  _isMounted = false;
   state = {
     perikopens: [],
   }
   componentDidMount() {
+    this._isMounted = true;
     this.getPerikopens();
   }
   getPerikopens = async () => {
     try {
       const { data } = await NetworkService.getPerikopens();
-      // console.log(data);
-      this.setState({
-        perikopens: data,
-      });
-    } catch(e) {
-
-    }
+      if (this._isMounted) {
+        this.setState({
+          perikopens: data,
+        });
+      }
+    } catch(e) {}
+  }
+  componentWillUnmount() {
+    this._isMounted = false;
   }
   render() {
     return (
