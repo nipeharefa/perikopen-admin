@@ -31,6 +31,8 @@ const PerikopenForm = (props: Props) => {
   const [formData, setFormData] = useState(obj);
 
   useEffect(() => {
+    let didCancel = false;
+
     const getPerikopenData = async() => {
       try {
         const { data } = await Network.getPerikopen(perikopenId);
@@ -41,12 +43,19 @@ const PerikopenForm = (props: Props) => {
           schedule: data.schedule.id,
           worship: data.worship.id,
         });
-        setFormData(newObj);
+
+        if (!didCancel) {
+          setFormData(newObj);
+        }
       } catch (error) {}
     }
 
     if (perikopenId !== 0) {
       getPerikopenData();
+    }
+
+    return () => {
+      didCancel = true;
     }
   }, []);
 

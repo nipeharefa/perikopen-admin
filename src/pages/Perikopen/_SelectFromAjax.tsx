@@ -29,16 +29,23 @@ const SelectFromAjax = (props: Props = defaultProps) => {
   };
 
   useEffect(() => {
+    let didCancel = false;
     const _getData = async () => {
       try {
         if (props.getData !== undefined) {
           const { data } = await props.getData();
-          setOption(data);
+          if (!didCancel) {
+            setOption(data);
+          }
         }
 
       } catch (error) {}
     }
     _getData();
+
+    return () => {
+      didCancel = true;
+    }
   }, [])
   return (
     <select

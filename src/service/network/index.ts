@@ -63,6 +63,9 @@ const NetworkService = () => ({
   addKJToPerikopen: (data: Object) : Promise<AxiosResponse> => {
     return axios.post('/api/perikopen-kj', data, { headers: {'content-type': 'application/json'}});
   },
+  addBZToPerikopen: (data: Object) : Promise<AxiosResponse> => {
+    return axios.post('/api/perikopen-bz', data, { headers: {'content-type': 'application/json'}});
+  },
   // Book
   getBibleBookCollection: (): Promise<AxiosResponse> => {
     return axios.get('/api/books_of_bibles.json');
@@ -70,10 +73,16 @@ const NetworkService = () => ({
   getPerikopenKidungJemaat: (perikopenId: Number) : Promise<AxiosResponse> => {
     return axios.get(`api/perikopen/${perikopenId}/kj`);
   },
+  getPerikopenBukuZinuno: (perikopenId: Number) : Promise<AxiosResponse> => {
+    return axios.get(`api/perikopen/${perikopenId}/bz`);
+  },
 
   // Kidung Jemaat
   getKidungJemaat: () : Promise<AxiosResponse> => {
     return axios.get('api/kidung_jemaats');
+  },
+  getBukuZinuno: () : Promise<AxiosResponse> => {
+    return axios.get('api/buku_zinunos');
   },
   getWorships: () : Promise<AxiosResponse> => {
     return axios.get('api/worships');

@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react';
-import { AxiosResponse, AxiosError } from 'axios';
+import { AxiosResponse } from 'axios';
 import {SortableContainer, SortableElement, SortEnd } from 'react-sortable-hoc';
 import network from '../../service/network';
 
 type KidungJemaatModel = {
   id: Number,
   displayOrder: Number,
-  kidungJemaat: {
+  bukuZinuno: {
     id: number,
     songNumber: string,
     title: string
@@ -22,7 +22,7 @@ const SortableItem = SortableElement((props: SortableItemKidungJemaat) => {
 
   return (
     <Fragment>
-      <p>{perikopen.kidungJemaat.title}</p>
+      <p>{perikopen.bukuZinuno.title}</p>
     </Fragment>
   )
 });
@@ -39,44 +39,44 @@ const SortableList = SortableContainer(({items}: any) => {
 });
 
 
-type SortableKidungJemaatProps = {
+type SortableBukuZinunoProps = {
   perikopenId: Number,
 }
 
 
-const SortableKidungJemaat = ({ perikopenId }: SortableKidungJemaatProps ) => {
+const SortableBukuZinuno = ({ perikopenId }: SortableBukuZinunoProps ) => {
 
   const [kjCollections, setKjCollections] = React.useState([]);
   const [kidungJemaat, setKidungJemaat] = React.useState([]);
   const [songSelected, setSongSelected] = React.useState(0);
 
-
   React.useEffect(() => {
     let didCancel = false;
     const getKidungJemaat = async () => {
       try {
-        const { data } = await network.getPerikopenKidungJemaat(perikopenId);
+        const { data } = await network.getPerikopenBukuZinuno(perikopenId);
         if (!didCancel) {
           setKidungJemaat(data);
         }
-      } catch (err) { }
+      } catch (error) {}
     };
 
     const getkjCollections = async() => {
       try {
-        const { data } = await network.getKidungJemaat();
+        const { data } = await network.getBukuZinuno();
         if (!didCancel) {
           setKjCollections(data);
         }
-      } catch (err) { }
+      } catch (error) {}
     };
 
     getKidungJemaat();
     getkjCollections();
 
     return () => {
-      didCancel = true;
-    }
+      didCancel = true
+    };
+
   }, [perikopenId]);
 
   const onSortEnd = (x: SortEnd) => {
@@ -88,10 +88,10 @@ const SortableKidungJemaat = ({ perikopenId }: SortableKidungJemaatProps ) => {
     setSongSelected(selected);
   };
 
-  const _addKJToPerikpen = async(data: Object) => {
+  const _addBZToPerikpen = async(data: Object) => {
 
     try {
-      const response : AxiosResponse = await network.addKJToPerikopen(data);
+      const response : AxiosResponse = await network.addBZToPerikopen(data);
       setSongSelected(0);
 
       // kidungJemaat.
@@ -105,9 +105,9 @@ const SortableKidungJemaat = ({ perikopenId }: SortableKidungJemaatProps ) => {
     const data = {
       displayOrder: 0,
       perikopen: perikopenId,
-      kidungJemaat: songSelected,
+      bukuZinuno: songSelected,
     };
-    _addKJToPerikpen(data);
+    _addBZToPerikpen(data);
   };
 
   return (
@@ -133,4 +133,4 @@ const SortableKidungJemaat = ({ perikopenId }: SortableKidungJemaatProps ) => {
   )
 };
 
-export default SortableKidungJemaat;
+export default SortableBukuZinuno;

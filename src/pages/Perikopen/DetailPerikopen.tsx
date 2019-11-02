@@ -1,9 +1,12 @@
 import React, { Fragment, useEffect } from 'react';
+import loadable from '@loadable/component';
 import { RouteComponentProps } from 'react-router';
 import network from '../../service/network';
 
 import Form from './_Form';
-import SortableKidungJemaat from './SortableKidungJemaat';
+
+const SortableKidungJemaat = loadable(() => import('./SortableKidungJemaat'))
+const SortableBukuZinuno = loadable(() => import('./SortableBukuZinuno'))
 
 
 type TParams = { id: string | undefined };
@@ -54,13 +57,14 @@ const DetailPerikopen = ({ match }: RouteComponentProps<TParams>) => {
             <a href="">Kidung Jemaat</a>
           </li>
           <li
-            onClick={() => setTabIndex(1)}
+            onClick={() => setTabIndex(2)}
             >
             <a href="">Buku Zinuno</a>
           </li>
       </ul>
       { tabIndex === 0 ? (<Form onSubmit={() => console.log('submit')} perikopenId={perikopenNumber}/> ) : null }
       { tabIndex === 1 ? (<SortableKidungJemaat perikopenId={perikopenNumber} />) : null }
+      { tabIndex === 2 ? (<SortableBukuZinuno perikopenId={perikopenNumber} />) : null }
     </Fragment>
   );
 };
